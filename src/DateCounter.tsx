@@ -2,9 +2,10 @@ import { useReducer, useState } from "react";
 
 function reducer(
   state: number,
-  { payload, type }: { type: "dec" | "inc" | "setCount"; payload: number }
+  { payload, type }: { type: "dec" | "inc" | "setCount"; payload?: number }
 ) {
-  if (type === "dec" || type === "inc") return state + payload;
+  if ( type === "inc") return state + 1;
+  if (type === 'dec') return state - 1;
   if (type === "setCount") return payload;
 }
 function DateCounter() {

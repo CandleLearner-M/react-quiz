@@ -1,16 +1,16 @@
 import { useReducer, useState } from "react";
 
 function reducer(
-  {count, step}:{count: number, step: number},
-  { payload, type }: { type: "dec" | "inc" | "setCount"; payload?: number }
+  { count, step }: { count: number; step: number },
+  { type, payload }: { type: "dec" | "inc" | "setCount"; payload?: number }
 ) {
-  if ( type === "inc") return count + step;
-  if (type === 'dec') return count - step;
+  if (type === "inc") return count + step;
+  if (type === "dec") return count - step;
   if (type === "setCount") return payload;
 }
 function DateCounter() {
-  const initialState = {count: 0, step: 1}
-  const [count, dispatch] = useReducer(reducer, initialState);
+  const initialState = { count: 0, step: 1 };
+  const [{ count, step }, dispatch] = useReducer(reducer, initialState);
 
   // This mutates the date object.
   const date = new Date("june 21 2027");

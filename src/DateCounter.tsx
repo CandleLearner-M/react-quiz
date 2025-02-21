@@ -1,15 +1,33 @@
 import { useReducer, useState } from "react";
 
+const initialState = { count: 0, step: 1 };
+
 function reducer(
-  { count, step }: { count: number; step: number },
-  { type, payload }: { type: "dec" | "inc" | "setCount"; payload?: number }
+  state: { count: number; step: number },
+  {
+    type,
+    payload,
+  }: {
+    type: "dec" | "inc" | "setCount" | "setStep" | "reset";
+    payload?: number;
+  }
 ) {
-  if (type === "inc") return count + step;
-  if (type === "dec") return count - step;
-  if (type === "setCount") return payload;
+  switch (type) {
+    case "dec":
+      return { ...state, count: state.count - state.step };
+    case "inc":
+      return { ...state, count: state.count + state.step };
+    case "setCount":
+      return { ...state, count: payload };
+    case "setStep":
+      return { ...state, step: payload };
+    case "reset":
+      return { count: 0, step: 1 };
+    default:
+      throw new Error("Unknown Action");
+  }
 }
 function DateCounter() {
-  const initialState = { count: 0, step: 1 };
   const [{ count, step }, dispatch] = useReducer(reducer, initialState);
 
   // This mutates the date object.
@@ -34,13 +52,14 @@ function DateCounter() {
   };
 
   const defineStep = function (e: React.ChangeEvent<HTMLInputElement>) {
-    setStep(Number(e.target.value));
+    dispatch({ type: "setStep", payload: Number(e.target.value) });
+
+    // setStep(Number(e.target.value));
   };
 
   const reset = function () {
     // setCount(0);
-    dispatch({ type: "setCount", payload: 0 });
-    setStep(1);
+    dispatch({ type: "reset" });
   };
 
   return (

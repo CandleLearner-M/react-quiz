@@ -9,7 +9,7 @@ export default function Questions({ questions }: QuestionsProps) {
   return (
     <div>
       {questions.map((question) => (
-        <div>{question.question}</div>
+        <div key={question.id}>{question.question}</div>
       ))}
     </div>
   );

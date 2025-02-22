@@ -5,6 +5,7 @@ interface QuestionsProps {
 }
 
 export default function Questions({ questions }: QuestionsProps) {
+  console.log(questions)
   return (
     <div>
       {questions.map((question) => (

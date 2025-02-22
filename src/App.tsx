@@ -32,7 +32,7 @@ const reducer = function (state: State, action: Action) {
     case "dataReceived":
       return {
         ...state,
-        question: action.payload,
+        questions: action.payload,
         status: "ready",
       };
     case "dataFailed":
@@ -46,7 +46,6 @@ const reducer = function (state: State, action: Action) {
 export default function App() {
   const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
-    dispatch({type: "loading"})
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
@@ -58,7 +57,8 @@ export default function App() {
       <Main>
         {status === "error" && <ErrorComp />}
         {status === "loading" && <Loader />}
-        {status === 'ready' && <Questions questions={questions}/>}
+        {status === 'ready' && <Welcome />}
+        {status === "active" && <Questions questions={questions} />}
       </Main>
     </div>
   );

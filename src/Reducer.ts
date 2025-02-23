@@ -3,6 +3,7 @@ import Question from "./types";
 interface State {
   questions: Question[];
   status: "loading" | "error" | "ready" | "active" | "finished";
+  activeIdx: number;
 }
 
 interface Action {
@@ -13,6 +14,7 @@ interface Action {
 export const initialState: State = {
   questions: [],
   status: "loading",
+  activeIdx: 0,
 };
 
 export const reducer = function (state: State, action: Action): State {

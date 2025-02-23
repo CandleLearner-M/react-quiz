@@ -11,7 +11,7 @@ import { reducer, initialState } from "./Reducer";
 // TypeScript Types
 
 export default function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, activeIdx }, dispatch] = useReducer(reducer, initialState);
 
   const questionsNums = questions.length;
 
@@ -37,7 +37,7 @@ export default function App() {
             </button>
           </Welcome>
         )}
-        {status === "active" && <Questions questions={questions} />}
+        {status === "active" && <Questions question={questions[activeIdx]} />}
       </Main>
     </div>
   );

@@ -4,14 +4,17 @@ import Main from "./Main1";
 import ErrorComp from "./Error";
 import Loader from "./Loader";
 import Questions from "./Questions";
-import Welcome from "./Welcome";
 
-import { reducer, initialState } from "./Reducer";
+import { reducer, initialState } from "../common/Reducer";
+import Welcome from "./Welcome";
 
 // TypeScript Types
 
 export default function App() {
-  const [{ questions, status, activeIdx }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, activeIdx, answerIdx }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const questionsNums = questions.length;
 
@@ -28,16 +31,10 @@ export default function App() {
         {status === "error" && <ErrorComp />}
         {status === "loading" && <Loader />}
         {status === "ready" && (
-          <Welcome questionNumber={questionsNums}>
-            <button
-              className="btn btn-ui"
-              onClick={() => dispatch({ type: "userStarted" })}
-            >
-              Let's Start
-            </button>
-          </Welcome>
+          <Welcome questionNumber={questionsNums} dispatch={dispatch} />
+            
         )}
-        {status === "active" && <Questions question={questions[activeIdx]} />}
+        {status === "active" && <Questions question={questions[activeIdx]} answer={answerIdx} dispatch={dispatch} />}
       </Main>
     </div>
   );

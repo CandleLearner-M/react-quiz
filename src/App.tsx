@@ -13,6 +13,8 @@ import { reducer, initialState } from "./Reducer";
 export default function App() {
   const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
+  const questionsNums = questions.length;
+
   useEffect(() => {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
@@ -26,9 +28,9 @@ export default function App() {
         {status === "error" && <ErrorComp />}
         {status === "loading" && <Loader />}
         {status === "ready" && (
-          <Welcome>
+          <Welcome questionNumber={questionsNums}>
             <button
-              className="btn"
+              className="btn btn-ui"
               onClick={() => dispatch({ type: "userStarted" })}
             >
               Let's Start

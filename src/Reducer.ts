@@ -7,7 +7,7 @@ interface State {
 
 interface Action {
   type: string;
-  payload?: number;
+  payload?: Question[];
 }
 
 export const initialState: State = {
@@ -15,7 +15,7 @@ export const initialState: State = {
   status: "loading",
 };
 
-export const reducer = function (state: State, action: Action) {
+export const reducer = function (state: State, action: Action): State {
   switch (action.type) {
     case "loading":
       return {
@@ -25,7 +25,7 @@ export const reducer = function (state: State, action: Action) {
     case "dataReceived":
       return {
         ...state,
-        questions: action.payload,
+        questions: action.payload ?? [],
         status: "ready",
       };
     case "dataFailed":

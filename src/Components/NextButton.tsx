@@ -1,23 +1,19 @@
 interface NextButtonProps {
   answer: number | null;
-  activeIdx: number;
-  dispatch: (action: { type: "next"; payload: number }) => void;
+  dispatch: (action: { type: "nextQuestion" }) => void;
 }
 
 export default function NextButton({
-  activeIdx,
   answer,
   dispatch,
 }: NextButtonProps) {
-  const hasAnswered = answer !== null;
+  if (answer === null) return;
   return (
-    hasAnswered && (
-      <button
-        className="btn btn-ui"
-        onClick={() => dispatch({ type: "next", payload: activeIdx + 1 })}
-      >
-        Next
-      </button>
-    )
+    <button
+      className="btn btn-ui"
+      onClick={() => dispatch({ type: "nextQuestion"})}
+    >
+      Next
+    </button>
   );
 }

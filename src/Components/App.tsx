@@ -8,16 +8,18 @@ import Questions from "./Questions";
 import { reducer, initialState } from "../common/Reducer";
 import Welcome from "./Welcome";
 import NextButton from "./NextButton";
+import Progress from "./Progress";
 
 // TypeScript Types
 
 export default function App() {
-  const [{ questions, status, activeIdx, answerIdx }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ questions, status, activeIdx, answerIdx, points }, dispatch] =
+    useReducer(reducer, initialState);
 
-  const questionsNums = questions.length;
+  const numQuestions = questions.length;
+  const maxPoints = questions
+    .map((question) => question.points)
+    .reduce((acc, curr) => acc + curr, 0);
 
   useEffect(() => {
     fetch("http://localhost:8000/questions")
@@ -32,21 +34,25 @@ export default function App() {
         {status === "error" && <ErrorComp />}
         {status === "loading" && <Loader />}
         {status === "ready" && (
-          <Welcome questionNumber={questionsNums} dispatch={dispatch} />
+          <Welcome questionNumber={numQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
           <>
+            <Progress
+              numQuestions={numQuestions}
+              idx={activeIdx}
+              points={points}
+              maxPoints={maxPoints}
+              answer={answerIdx}
+            />
+
             <Questions
               question={questions[activeIdx]}
               activeIdx={activeIdx}
               answer={answerIdx}
               dispatch={dispatch}
             />
-            <NextButton
-              activeIdx={activeIdx}
-              answer={answerIdx}
-              dispatch={dispatch}
-            />
+            <NextButton answer={answerIdx} dispatch={dispatch} />
           </>
         )}
       </Main>

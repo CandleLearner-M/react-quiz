@@ -27,8 +27,7 @@ type Action =
       payload: number;
     }
   | {
-      type: "next";
-      payload: number;
+      type: "nextQuestion";
     };
 
 export const initialState: State = {
@@ -70,10 +69,10 @@ export const reducer = function (state: State, action: Action): State {
       };
     }
 
-    case "next":
+    case "nextQuestion":
       return {
         ...state,
-        activeIdx: action.payload,
+        activeIdx: state.activeIdx + 1,
         answerIdx: null,
       };
 

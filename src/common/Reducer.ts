@@ -28,7 +28,8 @@ type Action =
     }
   | {
       type: "nextQuestion";
-    };
+    }
+  | { type: "done" };
 
 export const initialState: State = {
   questions: [],
@@ -74,6 +75,12 @@ export const reducer = function (state: State, action: Action): State {
         ...state,
         activeIdx: state.activeIdx + 1,
         answerIdx: null,
+      };
+
+    case "done":
+      return {
+        ...state,
+        status: "finished",
       };
 
     default:

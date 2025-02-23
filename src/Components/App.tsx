@@ -9,6 +9,7 @@ import { reducer, initialState } from "../common/Reducer";
 import Welcome from "./Welcome";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
+import FinishedScreen from "./FinishedScreen";
 
 // TypeScript Types
 
@@ -52,9 +53,11 @@ export default function App() {
               answer={answerIdx}
               dispatch={dispatch}
             />
-            <NextButton answer={answerIdx} dispatch={dispatch} />
+            <NextButton answer={answerIdx} dispatch={dispatch} currentIdx={activeIdx} numQuestions={numQuestions} />
           </>
         )}
+
+        {status === "finished" && <FinishedScreen maxPossiblePoints={maxPoints} points={points} />}
       </Main>
     </div>
   );

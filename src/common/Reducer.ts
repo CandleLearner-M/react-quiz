@@ -25,6 +25,10 @@ type Action =
   | {
       type: "newAnswer";
       payload: number;
+    }
+  | {
+      type: "next";
+      payload: number;
     };
 
 export const initialState: State = {
@@ -34,7 +38,6 @@ export const initialState: State = {
   answerIdx: null,
   points: 0,
 };
-
 
 export const reducer = function (state: State, action: Action): State {
   switch (action.type) {
@@ -60,8 +63,19 @@ export const reducer = function (state: State, action: Action): State {
       return {
         ...state,
         answerIdx: action.payload,
+        points:
+          question.correctOption === action.payload
+            ? state.points + question.points
+            : state.points,
       };
     }
+
+    case "next":
+      return {
+        ...state,
+        activeIdx: action.payload,
+        answerIdx: null,
+      };
 
     default:
       throw new Error("Action unknown");

@@ -32,9 +32,15 @@ export default function App() {
         {status === "loading" && <Loader />}
         {status === "ready" && (
           <Welcome questionNumber={questionsNums} dispatch={dispatch} />
-            
         )}
-        {status === "active" && <Questions question={questions[activeIdx]} answer={answerIdx} dispatch={dispatch} />}
+        {status === "active" && (
+          <Questions
+            question={questions[activeIdx]}
+            activeIdx={activeIdx}
+            answer={answerIdx}
+            dispatch={dispatch}
+          />
+        )}
       </Main>
     </div>
   );

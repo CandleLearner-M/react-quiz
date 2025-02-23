@@ -7,6 +7,7 @@ import Questions from "./Questions";
 
 import { reducer, initialState } from "../common/Reducer";
 import Welcome from "./Welcome";
+import NextButton from "./NextButton";
 
 // TypeScript Types
 
@@ -22,7 +23,7 @@ export default function App() {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
-      .catch((error) => dispatch({ type: "dataFailed" }));
+      .catch(() => dispatch({ type: "dataFailed" }));
   }, []);
   return (
     <div className="app">
@@ -34,12 +35,19 @@ export default function App() {
           <Welcome questionNumber={questionsNums} dispatch={dispatch} />
         )}
         {status === "active" && (
-          <Questions
-            question={questions[activeIdx]}
-            activeIdx={activeIdx}
-            answer={answerIdx}
-            dispatch={dispatch}
-          />
+          <>
+            <Questions
+              question={questions[activeIdx]}
+              activeIdx={activeIdx}
+              answer={answerIdx}
+              dispatch={dispatch}
+            />
+            <NextButton
+              activeIdx={activeIdx}
+              answer={answerIdx}
+              dispatch={dispatch}
+            />
+          </>
         )}
       </Main>
     </div>

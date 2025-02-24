@@ -92,11 +92,10 @@ export const reducer = function (state: State, action: Action): State {
 
     case "tryAgain":
       return {
-        ...state,
+        ...initialState,
         status: "ready",
-        activeIdx: 0,
-        answerIdx: null,
-        points: 0,
+        highScore: state.highScore,
+        questions: state.questions,
       };
 
     default:

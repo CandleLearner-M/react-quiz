@@ -11,6 +11,7 @@
     "server": "json-server --watch data/questions.json --port 8000"
   },
   "dependencies": {
+    "framer-motion": "^12.4.7",
     "json-server": "^1.0.0-beta.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

@@ -9,9 +9,14 @@ export default function FinishedScreen({
 }: FinishedScreenProps) {
   const resultPercentage = Math.ceil((points / maxPossiblePoints) * 100);
   return (
-    <p className="result">
-      You scored <strong>{points}</strong> out of {maxPossiblePoints} (
-      {resultPercentage}%)
-    </p>
+    <>
+      <p className="result">
+        You scored <strong>{points}</strong> out of {maxPossiblePoints} (
+        {resultPercentage}%)
+      </p>
+      <p className="highScore">
+        (highScore: X)
+      </p>
+    </>
   );
 }

@@ -1,10 +1,41 @@
-import logo from '../assets/react.svg'
+import { motion } from "framer-motion";
+import logo from "../assets/react.svg";
 
 function Header() {
   return (
-    <header className='app-header'>
-      <img src={logo} alt='React logo' />
-      <h1>The React Quiz</h1>
+    <header className="app-header">
+      <motion.img
+        initial={{
+          x: -1000,
+          rotate: 0,
+        }}
+        animate={{
+          x: 0,
+          rotate: 360,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 1000,
+          damping: 30,
+        }}
+        src={logo}
+        alt="React logo"
+      />
+      <motion.h1
+        initial={{
+          x: 1000,
+        }}
+        animate={{
+          x: 0
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 1000,
+          damping: 40
+        }}
+      >
+        The React Quiz
+      </motion.h1>
     </header>
   );
 }

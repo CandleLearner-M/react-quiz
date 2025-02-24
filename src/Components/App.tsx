@@ -14,7 +14,7 @@ import FinishedScreen from "./FinishedScreen";
 // TypeScript Types
 
 export default function App() {
-  const [{ questions, status, activeIdx, answerIdx, points }, dispatch] =
+  const [{ questions, status, activeIdx, answerIdx, points, highScore }, dispatch] =
     useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
@@ -57,7 +57,7 @@ export default function App() {
           </>
         )}
 
-        {status === "finished" && <FinishedScreen maxPossiblePoints={maxPoints} points={points} />}
+        {status === "finished" && <FinishedScreen maxPossiblePoints={maxPoints} points={points} highScore={highScore} dispatch={dispatch} />}
       </Main>
     </div>
   );

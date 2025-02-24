@@ -6,6 +6,7 @@ interface State {
   activeIdx: number;
   answerIdx: null | number;
   points: number;
+  highScore: number;
 }
 
 type Action =
@@ -29,7 +30,10 @@ type Action =
   | {
       type: "nextQuestion";
     }
-  | { type: "done" };
+  | { type: "done" }
+  | {
+      type: "tryAgain";
+    };
 
 export const initialState: State = {
   questions: [],
@@ -37,6 +41,7 @@ export const initialState: State = {
   activeIdx: 0,
   answerIdx: null,
   points: 0,
+  highScore: 0,
 };
 
 export const reducer = function (state: State, action: Action): State {
@@ -81,6 +86,17 @@ export const reducer = function (state: State, action: Action): State {
       return {
         ...state,
         status: "finished",
+        highScore:
+          state.points > state.highScore ? state.points : state.highScore,
+      };
+
+    case "tryAgain":
+      return {
+        ...state,
+        status: "ready",
+        activeIdx: 0,
+        answerIdx: null,
+        points: 0,
       };
 
     default:

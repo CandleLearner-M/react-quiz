@@ -6,7 +6,7 @@ function Header() {
     <header className="app-header">
       <motion.img
         initial={{
-          x: -1000,
+          x: -800,
           rotate: 0,
         }}
         animate={{
@@ -17,7 +17,7 @@ function Header() {
           type: "spring",
           stiffness: 1000,
           damping: 30,
-          duration: 0.75
+          duration: 2.5
         }}
         src={logo}
         alt="React logo"
@@ -33,7 +33,7 @@ function Header() {
           type: "spring",
           stiffness: 1000,
           damping: 40,
-          duration: 0.75
+          duration: 2.5
         }}
       >
         The React Quiz

@@ -1,6 +1,8 @@
+import { useEffect } from "react";
+
 export default function Timer() {
-  
-  return (
-    <div className="timer"></div>
-  )
+  useEffect(() => {
+    setInterval(() => dispatch({ type: "tick" }), 1000);
+  }, []);
+  return <div className="timer"></div>;
 }

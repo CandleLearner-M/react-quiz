@@ -34,7 +34,8 @@ type Action =
   | { type: "done" }
   | {
       type: "tryAgain";
-    };
+    }
+  | { type: "tick" };
 
 export const initialState: State = {
   questions: [],
@@ -43,7 +44,7 @@ export const initialState: State = {
   answerIdx: null,
   points: 0,
   highScore: 0,
-  remainingSeconds: 10
+  remainingSeconds: 10,
 };
 
 export const reducer = function (state: State, action: Action): State {

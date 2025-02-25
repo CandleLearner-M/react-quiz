@@ -17,7 +17,7 @@ import Timer from "./Timer";
 
 export default function App() {
   const [
-    { questions, status, activeIdx, answerIdx, points, highScore },
+    { questions, status, activeIdx, answerIdx, points, highScore, remainingSeconds },
     dispatch,
   ] = useReducer(reducer, initialState);
 
@@ -58,7 +58,7 @@ export default function App() {
               dispatch={dispatch}
             />
             <Footer>
-              <Timer />
+              <Timer remainingSeconds={remainingSeconds}  />
               <NextButton
                 answer={answerIdx}
                 dispatch={dispatch}

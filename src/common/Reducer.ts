@@ -101,6 +101,12 @@ export const reducer = function (state: State, action: Action): State {
         questions: state.questions,
       };
 
+    case "tick":
+      return {
+        ...state,
+        remainingSeconds: state.remainingSeconds - 1,
+      };
+
     default:
       throw new Error("Action unknown");
   }

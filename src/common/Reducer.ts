@@ -37,6 +37,8 @@ type Action =
     }
   | { type: "tick" };
 
+const SEC_PER_QUESTION = 30;
+
 export const initialState: State = {
   questions: [],
   status: "loading",
@@ -44,7 +46,7 @@ export const initialState: State = {
   answerIdx: null,
   points: 0,
   highScore: 0,
-  remainingSeconds: 10,
+  remainingSeconds: 5,
 };
 
 export const reducer = function (state: State, action: Action): State {
@@ -64,7 +66,11 @@ export const reducer = function (state: State, action: Action): State {
       return { ...state, status: "error" };
 
     case "start":
-      return { ...state, status: "active" };
+      return {
+        ...state,
+        status: "active",
+        remainingSeconds: state.questions.length * SEC_PER_QUESTION,
+      };
 
     case "newAnswer": {
       const question = state.questions[state.activeIdx];
@@ -104,7 +110,12 @@ export const reducer = function (state: State, action: Action): State {
     case "tick":
       return {
         ...state,
-        remainingSeconds: state.remainingSeconds - 0.5 || 0,
+        remainingSeconds: state.remainingSeconds - 1 || 0,
+        status: state.remainingSeconds === 0 ? "finished" : state.status,
+        highScore:
+          state.remainingSeconds === 0 && state.points > state.highScore
+            ? state.points
+            : state.highScore,
       };
 
     default:

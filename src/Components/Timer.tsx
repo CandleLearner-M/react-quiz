@@ -7,7 +7,10 @@ interface TimerProps {
 
 export default function Timer({ dispatch, remainingSeconds }: TimerProps) {
   useEffect(() => {
-    setInterval(() => dispatch({ type: "tick" }), 1000);
+    const id = setInterval(() => dispatch({ type: "tick" }), 1000);
+    return ()=> {
+      clearInterval(id)
+    }
   }, [dispatch]);
   return <div className="timer">{remainingSeconds}</div>;
 }

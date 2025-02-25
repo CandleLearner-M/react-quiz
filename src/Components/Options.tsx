@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Question from "../common/types";
 
 interface OptionsProps {
@@ -12,23 +13,44 @@ export default function Options({ question, answer, dispatch }: OptionsProps) {
     <>
       <div className="options">
         {question.options.map((option, index) => (
-          <button
+          <motion.button
+            initial={{
+              x: 0,
+            }}
+            animate={{
+              x:
+                index === answer && index !== question.correctOption
+                  ? [90, -90, 90, -90, 0]
+                  : 0,
+              y:
+                index === answer && index === question.correctOption
+                  ? [10, -40, 10, 0]
+                  : 0,
+            }}
+            transition={{
+              duration: 0.3,
+            }}
             key={option}
+            style={{
+              backgroundColor:
+                index === answer && index !== question.correctOption
+                  ? "#FF6161"
+                  : "",
+            }}
             className={`btn btn-option ${index === answer ? "answer" : ""} ${
               hasAnswered
                 ? index === question.correctOption
                   ? "correct"
-                  : "wrong"
+                  : ""
                 : ""
             }`}
             disabled={hasAnswered}
             onClick={() => dispatch({ type: "newAnswer", payload: index })}
           >
             {option}
-          </button>
+          </motion.button>
         ))}
       </div>
-
     </>
   );
 }

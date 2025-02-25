@@ -7,8 +7,9 @@ interface WelcomeProps {
 
 export default function Welcome({ questionNumber, dispatch }: WelcomeProps) {
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <motion.div
+        key="welcome"
         className="start"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

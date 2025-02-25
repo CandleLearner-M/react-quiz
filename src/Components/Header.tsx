@@ -17,6 +17,7 @@ function Header() {
           type: "spring",
           stiffness: 1000,
           damping: 30,
+          duration: 0.75
         }}
         src={logo}
         alt="React logo"
@@ -31,7 +32,8 @@ function Header() {
         transition={{
           type: "spring",
           stiffness: 1000,
-          damping: 40
+          damping: 40,
+          duration: 0.75
         }}
       >
         The React Quiz

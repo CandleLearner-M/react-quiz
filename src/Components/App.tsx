@@ -10,12 +10,16 @@ import Welcome from "./Welcome";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
 import FinishedScreen from "./FinishedScreen";
+import Footer from "./Footer";
+import Timer from "./Timer";
 
 // TypeScript Types
 
 export default function App() {
-  const [{ questions, status, activeIdx, answerIdx, points, highScore }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { questions, status, activeIdx, answerIdx, points, highScore },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
   const maxPoints = questions
@@ -53,12 +57,26 @@ export default function App() {
               answer={answerIdx}
               dispatch={dispatch}
             />
-            <Timer/>
-            <NextButton answer={answerIdx} dispatch={dispatch} currentIdx={activeIdx} numQuestions={numQuestions} />
+            <Footer>
+              <Timer />
+              <NextButton
+                answer={answerIdx}
+                dispatch={dispatch}
+                currentIdx={activeIdx}
+                numQuestions={numQuestions}
+              />
+            </Footer>
           </>
         )}
 
-        {status === "finished" && <FinishedScreen maxPossiblePoints={maxPoints} points={points} highScore={highScore} dispatch={dispatch} />}
+        {status === "finished" && (
+          <FinishedScreen
+            maxPossiblePoints={maxPoints}
+            points={points}
+            highScore={highScore}
+            dispatch={dispatch}
+          />
+        )}
       </Main>
     </div>
   );

@@ -53,6 +53,7 @@ export default function App() {
               answer={answerIdx}
               dispatch={dispatch}
             />
+            <Timer/>
             <NextButton answer={answerIdx} dispatch={dispatch} currentIdx={activeIdx} numQuestions={numQuestions} />
           </>
         )}

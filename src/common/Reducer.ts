@@ -104,7 +104,7 @@ export const reducer = function (state: State, action: Action): State {
     case "tick":
       return {
         ...state,
-        remainingSeconds: state.remainingSeconds - 1,
+        remainingSeconds: state.remainingSeconds - 1 || 0,
       };
 
     default:

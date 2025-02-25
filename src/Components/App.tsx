@@ -58,7 +58,7 @@ export default function App() {
               dispatch={dispatch}
             />
             <Footer>
-              <Timer remainingSeconds={remainingSeconds}  />
+              <Timer remainingSeconds={remainingSeconds} dispatch={dispatch} />
               <NextButton
                 answer={answerIdx}
                 dispatch={dispatch}

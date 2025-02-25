@@ -7,6 +7,7 @@ interface State {
   answerIdx: null | number;
   points: number;
   highScore: number;
+  remainingSeconds: number;
 }
 
 type Action =
@@ -42,6 +43,7 @@ export const initialState: State = {
   answerIdx: null,
   points: 0,
   highScore: 0,
+  remainingSeconds: 10
 };
 
 export const reducer = function (state: State, action: Action): State {

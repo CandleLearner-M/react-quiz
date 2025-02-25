@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import Header from "./Header";
 import Main from "./Main1";
 import ErrorComp from "./Error";
@@ -26,12 +26,12 @@ export default function App() {
     .map((question) => question.points)
     .reduce((acc, curr) => acc + curr, 0);
 
-  useEffect(() => {
-    fetch("http://localhost:8000/questions")
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
-      .catch(() => dispatch({ type: "dataFailed" }));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:8000/questions")
+  //     .then((res) => res.json())
+  //     .then((data) => dispatch({ type: "dataReceived", payload: data }))
+  //     .catch(() => dispatch({ type: "dataFailed" }));
+  // }, []);
   return (
     <div className="app">
       <Header />

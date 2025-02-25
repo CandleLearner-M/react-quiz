@@ -1,5 +1,7 @@
 import Question from "./types";
+import quests from '../../data/questions.json'
 
+console.log(quests.questions)
 interface State {
   questions: Question[];
   status: "loading" | "error" | "ready" | "active" | "finished";
@@ -40,8 +42,8 @@ type Action =
 const SEC_PER_QUESTION = 30;
 
 export const initialState: State = {
-  questions: [],
-  status: "loading",
+  questions: quests.questions,
+  status: "ready",
   activeIdx: 0,
   answerIdx: null,
   points: 0,
@@ -52,14 +54,13 @@ export const initialState: State = {
 export const reducer = function (state: State, action: Action): State {
   switch (action.type) {
     case "loading":
-      return {
+      return { 
         ...state,
         status: "loading",
       };
     case "dataReceived":
       return {
         ...state,
-        questions: action.payload,
         status: "ready",
       };
     case "dataFailed":

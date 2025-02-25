@@ -3,7 +3,7 @@ interface Question {
   options: string[];
   correctOption: number;
   points: number;
-  id: string;
+  id?: string;
 }
 
 

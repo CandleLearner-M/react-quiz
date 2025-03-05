@@ -1,7 +1,7 @@
 import Question from "./types";
-import quests from '../../data/questions.json'
+import quests from "../../data/questions.json";
+import { createContext, ReactNode, useContext, useReducer } from "react";
 
-console.log(quests.questions)
 interface State {
   questions: Question[];
   status: "loading" | "error" | "ready" | "active" | "finished";
@@ -39,9 +39,14 @@ type Action =
     }
   | { type: "tick" };
 
+interface QuizContextTypes {
+  state: State;
+  dispatch: React.Dispatch<Action>;
+}
+
 const SEC_PER_QUESTION = 30;
 
-export const initialState: State = {
+const initialState: State = {
   questions: quests.questions,
   status: "ready",
   activeIdx: 0,
@@ -51,10 +56,10 @@ export const initialState: State = {
   remainingSeconds: 5,
 };
 
-export const reducer = function (state: State, action: Action): State {
+const reducer = function (state: State, action: Action): State {
   switch (action.type) {
     case "loading":
-      return { 
+      return {
         ...state,
         status: "loading",
       };
@@ -123,3 +128,27 @@ export const reducer = function (state: State, action: Action): State {
       throw new Error("Action unknown");
   }
 };
+
+const QuizContext = createContext<QuizContextTypes | undefined>(undefined);
+
+export function QuizProvider({ children }: { children: ReactNode }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <QuizContext.Provider
+      value={{
+        state,
+        dispatch,
+      }}
+    >
+      {children}
+    </QuizContext.Provider>
+  );
+}
+
+export function useQuiz() {
+  const context = useContext(QuizContext);
+  if (context === undefined)
+    throw new Error("Context used outside of its Provider");
+  return context;
+}

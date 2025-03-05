@@ -1,37 +1,38 @@
-import { useReducer } from "react";
-import Header from "./Header";
-import Main from "./Main1";
 import ErrorComp from "./Error";
+import Header from "./Header";
 import Loader from "./Loader";
+import Main from "./Main1";
 import Questions from "./Questions";
 
-import { reducer, initialState } from "../common/Reducer";
-import Welcome from "./Welcome";
-import NextButton from "./NextButton";
-import Progress from "./Progress";
+import { useQuiz } from "../common/Reducer";
 import FinishedScreen from "./FinishedScreen";
 import Footer from "./Footer";
+import NextButton from "./NextButton";
+import Progress from "./Progress";
 import Timer from "./Timer";
+import Welcome from "./Welcome";
 
 // TypeScript Types
 
 export default function App() {
-  const [
-    { questions, status, activeIdx, answerIdx, points, highScore, remainingSeconds },
+  const {
+    state: {
+      questions,
+      status,
+      activeIdx,
+      answerIdx,
+      points,
+      highScore,
+      remainingSeconds,
+    },
     dispatch,
-  ] = useReducer(reducer, initialState);
+  } = useQuiz();
 
   const numQuestions = questions.length;
   const maxPoints = questions
     .map((question) => question.points)
     .reduce((acc, curr) => acc + curr, 0);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:8000/questions")
-  //     .then((res) => res.json())
-  //     .then((data) => dispatch({ type: "dataReceived", payload: data }))
-  //     .catch(() => dispatch({ type: "dataFailed" }));
-  // }, []);
+    
   return (
     <div className="app">
       <Header />
@@ -45,10 +46,7 @@ export default function App() {
           <>
             <Progress
               numQuestions={numQuestions}
-              idx={activeIdx}
-              points={points}
               maxPoints={maxPoints}
-              answer={answerIdx}
             />
 
             <Questions

@@ -1,20 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Options from "./Options";
-import Question from "../common/types";
+import { useQuiz } from "../common/Reducer";
 
-interface QuestionsProps {
-  question: Question;
-  answer: number | null;
-  dispatch: (action: { type: "newAnswer"; payload: number }) => void;
-  activeIdx: number;
-}
 
-export default function Questions({
-  question,
-  answer,
-  dispatch,
-  activeIdx,
-}: QuestionsProps) {
+
+
+export default function Questions() {
+  const {activeIdx, activeQuestion: question } = useQuiz();
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -25,7 +18,7 @@ export default function Questions({
         transition={{ duration: 0.5 }}
       >
         <h4>{question.question}</h4>
-        <Options question={question} answer={answer} dispatch={dispatch} />
+        <Options />
       </motion.div>
     </AnimatePresence>
   );

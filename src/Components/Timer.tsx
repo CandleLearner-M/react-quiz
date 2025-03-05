@@ -1,11 +1,9 @@
 import { useEffect } from "react";
+import { useQuiz } from "../common/Reducer";
 
-interface TimerProps {
-  dispatch: (action: { type: "tick" }) => void;
-  remainingSeconds: number;
-}
+export default function Timer() {
+  const { remainingSeconds, dispatch } = useQuiz();
 
-export default function Timer({ dispatch, remainingSeconds }: TimerProps) {
   const mins = Math.floor(remainingSeconds / 60);
   const seconds = remainingSeconds % 60;
 

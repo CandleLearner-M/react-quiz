@@ -1,17 +1,13 @@
-interface NextButtonProps {
-  answer: number | null;
-  dispatch: (action: { type: "nextQuestion" | "done" }) => void;
-  currentIdx: number;
-  numQuestions: number;
-}
+import { useQuiz } from "../common/Reducer";
 
-export default function NextButton({
-  answer,
-  dispatch,
-  currentIdx,
-  numQuestions,
-}: NextButtonProps) {
-  console.log(currentIdx < numQuestions - 2, currentIdx, numQuestions - 2);
+export default function NextButton() {
+  const {
+    answerIdx: answer,
+    dispatch,
+    activeIdx: currentIdx,
+    numQuestions,
+  } = useQuiz();
+
   if (answer === null) return;
   if (currentIdx < numQuestions - 1)
     return (

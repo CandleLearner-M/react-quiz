@@ -1,18 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useQuiz } from "../common/Reducer";
 
-interface FinishedScreenProps {
-  points: number;
-  maxPossiblePoints: number;
-  highScore: number;
-  dispatch: (action: { type: "tryAgain" }) => void;
-}
+export default function FinishedScreen() {
+  const {
+    maxPoints: maxPossiblePoints,
+    points,
+    highScore,
+    dispatch,
+  } = useQuiz();
 
-export default function FinishedScreen({
-  maxPossiblePoints,
-  points,
-  highScore,
-  dispatch,
-}: FinishedScreenProps) {
   const resultPercentage = Math.ceil((points / maxPossiblePoints) * 100);
   return (
     <AnimatePresence mode="wait">

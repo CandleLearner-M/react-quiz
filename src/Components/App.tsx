@@ -15,66 +15,28 @@ import Welcome from "./Welcome";
 // TypeScript Types
 
 export default function App() {
-  const {
-    state: {
-      questions,
-      status,
-      activeIdx,
-      answerIdx,
-      points,
-      highScore,
-      remainingSeconds,
-    },
-    dispatch,
-  } = useQuiz();
+  const { status } = useQuiz();
 
-  const numQuestions = questions.length;
-  const maxPoints = questions
-    .map((question) => question.points)
-    .reduce((acc, curr) => acc + curr, 0);
-    
   return (
     <div className="app">
       <Header />
       <Main>
         {status === "error" && <ErrorComp />}
         {status === "loading" && <Loader />}
-        {status === "ready" && (
-          <Welcome questionNumber={numQuestions} dispatch={dispatch} />
-        )}
+        {status === "ready" && <Welcome />}
         {status === "active" && (
           <>
-            <Progress
-              numQuestions={numQuestions}
-              maxPoints={maxPoints}
-            />
+            <Progress />
 
-            <Questions
-              question={questions[activeIdx]}
-              activeIdx={activeIdx}
-              answer={answerIdx}
-              dispatch={dispatch}
-            />
+            <Questions />
             <Footer>
-              <Timer remainingSeconds={remainingSeconds} dispatch={dispatch} />
-              <NextButton
-                answer={answerIdx}
-                dispatch={dispatch}
-                currentIdx={activeIdx}
-                numQuestions={numQuestions}
-              />
+              <Timer />
+              <NextButton />
             </Footer>
           </>
         )}
 
-        {status === "finished" && (
-          <FinishedScreen
-            maxPossiblePoints={maxPoints}
-            points={points}
-            highScore={highScore}
-            dispatch={dispatch}
-          />
-        )}
+        {status === "finished" && <FinishedScreen />}
       </Main>
     </div>
   );

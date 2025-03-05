@@ -39,11 +39,6 @@ type Action =
     }
   | { type: "tick" };
 
-interface QuizContextTypes {
-  state: State;
-  dispatch: React.Dispatch<Action>;
-}
-
 const SEC_PER_QUESTION = 30;
 
 const initialState: State = {
@@ -129,16 +124,51 @@ const reducer = function (state: State, action: Action): State {
   }
 };
 
+interface QuizContextTypes extends State {
+  dispatch: React.Dispatch<Action>;
+  numQuestions: number;
+  maxPoints: number;
+  activeQuestion: Question;
+}
+
 const QuizContext = createContext<QuizContextTypes | undefined>(undefined);
 
 export function QuizProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [
+    {
+      questions,
+      status,
+      activeIdx,
+      answerIdx,
+      points,
+      highScore,
+      remainingSeconds,
+    },
+
+    dispatch,
+  ] = useReducer(reducer, initialState);
+
+  const numQuestions = questions.length;
+  const maxPoints = questions
+    .map((question) => question.points)
+    .reduce((acc, curr) => acc + curr, 0);
+
+    const activeQuestion = questions[activeIdx];
 
   return (
     <QuizContext.Provider
       value={{
-        state,
+        questions,
+        status,
+        activeIdx,
+        answerIdx,
+        points,
+        highScore,
+        remainingSeconds,
         dispatch,
+        numQuestions,
+        maxPoints,
+        activeQuestion
       }}
     >
       {children}

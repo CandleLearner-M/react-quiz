@@ -1,13 +1,10 @@
 import { motion } from "framer-motion";
-import Question from "../common/types";
+import { useQuiz } from "../common/Reducer";
 
-interface OptionsProps {
-  question: Question;
-  answer: number | null;
-  dispatch: (action: { type: "newAnswer"; payload: number }) => void;
-}
+//  question={question} answer={answer} dispatch={dispatch}
+export default function Options() {
+  const { answerIdx: answer, activeQuestion: question, dispatch } = useQuiz();
 
-export default function Options({ question, answer, dispatch }: OptionsProps) {
   const hasAnswered = answer !== null;
   return (
     <>

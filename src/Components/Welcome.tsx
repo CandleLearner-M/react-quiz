@@ -1,11 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useQuiz } from "../common/Reducer";
 
-interface WelcomeProps {
-  questionNumber: number;
-  dispatch: (action: { type: "start" }) => void;
-}
+export default function Welcome() {
+  const { dispatch, numQuestions: questionNumber } = useQuiz();
 
-export default function Welcome({ questionNumber, dispatch }: WelcomeProps) {
   return (
     <AnimatePresence mode="wait">
       <motion.div
